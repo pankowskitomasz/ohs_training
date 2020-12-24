@@ -1,38 +1,45 @@
 import React,{Component} from "react";
-import {BrowserRouter, Switch, Redirect, Route} from "react-router-dom";
-import Navigation from "./components/navigation";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
+//---------------------------------------------------------
+//components
+import NavigationMultiLevel from "./components/navigation-multi-level";
 import Footer from "./components/footer";
-import Comingsoon from "./components/comingsoon";
-import Error from "./components/error";
-import PrivacyPolicy from "./components/privacy";
+//---------------------------------------------------------
+import {appCfg} from "./config"; 
 
 class App extends Component{
     constructor(){
         super();
         this.state={
-            backLink: {name:"back to Home",href:"/"},
-            privacyLink: {name:"Privacy Policy",href:"/privacy"}
+            routes: appCfg.routes
         };
     }
+    getMenuItems(itemListA,listA){
+        let list = listA;
+        for(let i=0;i<itemListA.length;i++){
+            list.push(itemListA[i]);
+            if(itemListA[i].subItems!==undefined){                
+                this.getMenuItems(itemListA[i].subItems,list);
+            }
+        }
+        return list;
+    }
     render(){
+        let itemsList = this.getMenuItems(this.state.routes,[]);    
+        let switchContent = itemsList.map((item,idx)=>{
+            if(item.exact){
+                return <Route key={idx} exact path={item.path}>{item.view}</Route>;
+            }
+            return <Route key={idx} path={item.path}>{item.view}</Route>;
+        });
         return(        
             <BrowserRouter>
-                <Navigation/>                 
+                <NavigationMultiLevel menuItems={this.state.routes}/>                 
                 <Switch>
-                    <Route exact path="/">
-                        <Comingsoon/>
-                    </Route>
-                    <Route path="/privacy">
-                        <PrivacyPolicy backLink={this.state.backLink}/>
-                    </Route>
-                    <Route path="/error">
-                        <Error backLink={this.state.backLink}/>
-                    </Route>
-                    <Route path="*">
-                        <Redirect to="/error"/>
-                    </Route>
+                    {switchContent}
                 </Switch>   
-                <Footer privacyLink={this.state.privacyLink}/>        
+                <Footer privacyLink={{name:"Privacy Policy",href:"/privacy"}}
+                    menuItems={this.state.routes}/>          
             </BrowserRouter>
         );
     }
