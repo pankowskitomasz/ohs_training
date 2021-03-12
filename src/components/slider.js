@@ -24,10 +24,8 @@ class Slider extends Component{
                                     <p className="initialism font-weight-bold">
                                         Check our offer for OHS courses.
                                     </p>
-                                    <Link to="/offer">
-                                        <Button variant="outline-light" className="rounded-pill font-weight-bold">
-                                            See more
-                                        </Button>
+                                    <Link to="/offer" className="btn btn-outline-light rounded-pill font-weight-bold">
+                                        See more
                                     </Link>
                                 </Carousel.Caption>
                             </Carousel.Item>
@@ -42,10 +40,8 @@ class Slider extends Component{
                                     <p className="initialism font-weight-bold">
                                         Don't wait register online now!
                                     </p>
-                                    <Link to="/register">
-                                        <Button variant="outline-light" className="rounded-pill font-weight-bold">
-                                            See more
-                                        </Button>
+                                    <Link to="/register" className="btn btn-outline-light rounded-pill font-weight-bold">
+                                        See more
                                     </Link>
                                 </Carousel.Caption>
                             </Carousel.Item>
@@ -60,10 +56,8 @@ class Slider extends Component{
                                     <p className="initialism font-weight-bold">
                                         If you have any questions contact us online!
                                     </p>
-                                    <Link to="/contact">
-                                        <Button variant="outline-light" className="rounded-pill font-weight-bold">
-                                            See more
-                                        </Button>
+                                    <Link to="/contact" className="btn btn-outline-light rounded-pill font-weight-bold">
+                                        See more
                                     </Link>
                                 </Carousel.Caption>
                             </Carousel.Item>
